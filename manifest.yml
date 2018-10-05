@@ -1,6 +1,8 @@
 applications:
-- name: watson-assistant-simple
+- name: watson-assistant-multi-bot-agent
   command: npm start
   path: .
   memory: 256M
   instances: 1
+  env:
+    

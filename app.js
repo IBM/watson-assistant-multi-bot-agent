@@ -34,6 +34,7 @@ var assistant = new AssistantV1({
 
 // Endpoint to be call from the client side
 app.post('/api/message', function (req, res) {
+  console.log("");
   var workspace = getDestinationBot(req.body.context) || '<workspace-id>';
   if (!workspace || workspace === '<workspace-id>') {
     return res.json({ 
@@ -50,6 +51,7 @@ app.post('/api/message', function (req, res) {
 
   // Send the input to the assistant service
   assistant.message(payload, function (err, data) {
+    console.log("Message: " + JSON.stringify(payload.input));
     if (err) {
       return res.status(err.code || 500).json(err);
     }
@@ -64,6 +66,7 @@ app.post('/api/message', function (req, res) {
       delete payload.context.conversation_id;
       // For redirect, no user action is needed. Call the redirect bot automatically and send back that response to user
       assistant.message(payload, function (err, data) {
+        console.log("Message: " + JSON.stringify(payload.input));
         if (err) {
           return res.status(err.code || 500).json(err);
         }
@@ -91,13 +94,31 @@ function isRedirect(context){
 // The agent bot decides which bot the request should be redirected to and updates that in context variable.
 // Get worspace_id for redirected bot details so messages can be sent to that bot
 function getDestinationBot(context){
-  if( context && context.destination_bot && context.destination_bot.toUpperCase() === "TRAVEL" ){
-    return process.env.WORKSPACE_ID_TRAVEL;
-  }else if( context && context.destination_bot && context.destination_bot.toUpperCase() === "WEATHER" ){
-    return process.env.WORKSPACE_ID_WEATHER;
-  }else{
-    return process.env.WORKSPACE_ID_AGENT;
+  var destination_bot = null;
+  if( context && context.destination_bot ){
+    destination_bot = context.destination_bot.toUpperCase();
   }
+
+  var wsId = process.env[ "WORKSPACE_ID_" + destination_bot];
+
+  if( !wsId ){
+    wsId = process.env["WORKSPACE_ID_AGENT"];
+  }
+
+  if( !destination_bot ){
+    destination_bot = "AGENT";
+  }
+
+  console.log("Message being sent to: " + destination_bot + " bot");
+  return wsId;
+
+  // if( context && context.destination_bot && context.destination_bot.toUpperCase() === "TRAVEL" ){
+  //   return process.env['WORKSPACE_ID_TRAVEL'];
+  // }else if( context && context.destination_bot && context.destination_bot.toUpperCase() === "WEATHER" ){
+  //   return process.env['WORKSPACE_ID_WEATHER'];
+  // }else{
+  //   return process.env["WORKSPACE_ID_AGENT"];
+  // }
 }
 /**
  * Updates the response text using the intent confidence
@@ -110,6 +131,7 @@ function updateMessage(input, response) {
   if (!response.output) {
     response.output = {};
   } else {
+    console.log("Response message: " + JSON.stringify(response.output.text));
     return response;
   }
   if (response.intents && response.intents[0]) {
