@@ -60,7 +60,7 @@ Coming soon!!!
 2. Create bots.
 3. Configure application with bots details.
 4. Deploy application to IBM Cloud.
-5. Run the application.
+5. Run application.
 
 ### 1. Clone git repo
 
@@ -111,6 +111,8 @@ run `cd watson-assistant-multi-bot-agent` to change directory to project parent 
 
 ### 3. Configure application with bots details
 
+#### 3.1 Gather required details
+
 - Go to IBM Cloud dashboard and click on the Watson Assistant service instance.
 - On the Assistant Dashboard, click `Launch Tool`.
 - Click `Workspaces` tab.
@@ -132,6 +134,88 @@ run `cd watson-assistant-multi-bot-agent` to change directory to project parent 
 
 - Copy `url`, `username` and `password` and save them for later use.
 
+#### 3.2 Update manifest.yml file with the details gathered
+
+- Under project parent folder, open `manifest.yml` file for editing.
+- Update username, of Watson Assistant service instance as noted in section #### 3.1 Gather required details, against ASSISTANT_USERNAME
+- Update password, of Watson Assistant service instance as noted in section #### 3.1 Gather required details, against ASSISTANT_PASSWORD
+- Update workspace ids, as noted in section #### 3.1 Gather required details, against respective bots
+
+Updated manifest.yml file looks as below
+
+![Manifest](images/manifest.png)
+
+
+### 4. Deploy application to IBM Cloud
+- On command prompt, navigate to project parent folder
+- On command prompt, login to IBM Cloud using `ibmcloud login` or `ibmcloud login --sso` (for federated login).
+- Ensure that you are in the right organisation, space and region using the below command.
+```
+ibmcloud target
+```
+- Run the below command to deploy the application to IBM Cloud.
+```
+ibmcloud cf push
+```
+- Check the logs of the application using the command `ibmcloud cf logs <app_name> --recent`.
+- Ensure that the application is deployed to IBM Cloud successfully. If you see any errors in logs, fix them and redeploy the application.
+
+
+### 5. Run application
+- On a browser, Login to IBM Cloud and go to dashboard. There you will see that the application is deployed and running.
+- Click on the application and click on `Visit App URL`.
+
+![VisitAppURL](images/visit_app_url.png)
+
+- The application home page opens.
+
+![AppHomePage](images/app_home_page.png)
+
+- On command prompt monitor logs using the command
+```
+ibmcloud cf logs watson-assistant-multi-bot-agent
+```
+
+- On the application home page type a weather related query `What does the weather look like tomorrow?`.
+![Query1](images/query_1.png)
+- Check the log files and notice that the message first goes to Agent Bot and then it is redirected to the Weather Bot.
+![AppLogs1](images/app_logs_1.png)
+- In the interface, you are asked to enter the location. Enter a location, e.g. `Bengaluru`.
+- Check the logs. Because the conversation with the Weather Bot has not ended, subsequent messages are sent to the Weather Bot itself, without the intervention of the Agent Bot.
+![AppLogs2](images/app_logs_2.png)
+- The Weather Bot responds with an answer to user query and hence conversation with Weather Bot is treated as ended.
+- Next user enters a travel related query `Book a cab`.
+- In the logs, notice that the message is sent to Agent Bot and then it is redirected to Travel Bot.
+![AppLogs3](images/app_logs_3.png)
+- In the interface you are asked to enter a date for cab booking. Enter a date or you can just say `Today`.
+- Check the logs. Because the conversation with the Travel Bot has not ended, subsequent messages are sent to the Weather Bot itself, without the intervention of the Agent Bot.
+![AppLogs4](images/app_logs_4.png)
+- In the interface you are asked to enter time for the cab to arrive. Say `12 PM`.
+- Check the logs. Travel Bot responds with an answer. The the conversation with Travel Bot has ended.
+- The above conversation flow can continue and the Agent Bot will redirect the messages to specific bots based on the intent of user query
+- Some of the basic messages as greetings and bye can be handled by Agent Bot itself.
+- In the interface type `Thank you. Bye`
+
+![ChatInterfaceFull](images/chat_interface_full.png)
+
+- Overall Flow of messages between bots is as shown in the below diagram
+
+![AppLogs](images/app_logs.png)
+
+1. Message sent to Agent Bot.
+2. Message redirected to Weather Bot.
+3. Response from Weather Bot.
+4. Message sent to Weather Bot.
+5. Response from Weather Bot (end of conversation with Weather Bot).
+6. Message sent to Agent Bot.
+7. Message redirected to Travel Bot.
+8. Response from Travel Bot.
+9. Message sent to Travel Bot.
+10. Response from Travel Bot.
+11. Message sent to Travel Bot.
+12. Response from Travel Bot (end of conversation with Travel Bot).
+13. Message sent to Agent Bot.
+14. Response from Agent Bot (end of conversation).
 
 
 # Summary
