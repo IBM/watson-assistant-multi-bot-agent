@@ -4,6 +4,7 @@ applications:
   path: .
   memory: 256M
   instances: 1
+  random-route: true
   env:
     ASSISTANT_USERNAME: <Watson assistant service instance username>
     ASSISTANT_PASSWORD: <Watson assistant service instance password>
