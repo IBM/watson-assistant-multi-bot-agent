@@ -31,7 +31,7 @@ Coming soon!!!
 
 ## Flow
 
-![Architecture](images/Architecture.png)
+![Architecture](images/architecture.png)
 
 1. User accesses web application and types in a message. Nodejs application, an orchestration later, send user message to agent bot
 2. Agent bot determines the intent of the message and responds with the specific bot details to which the message needs to be redirected.
