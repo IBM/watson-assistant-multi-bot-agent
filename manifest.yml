@@ -5,4 +5,8 @@ applications:
   memory: 256M
   instances: 1
   env:
-    
+    ASSISTANT_USERNAME: <Watson assistant service instance username>
+    ASSISTANT_PASSWORD: <Watson assistant service instance password>
+    WORKSPACE_ID_AGENT: <Workspace id of Agent Bot>
+    WORKSPACE_ID_WEATHER: <Workspace id of Weather Bot>
+    WORKSPACE_ID_TRAVEL: <Workspace id of Travel Bot>
