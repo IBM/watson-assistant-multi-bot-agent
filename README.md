@@ -141,7 +141,7 @@ run `cd watson-assistant-multi-bot-agent` to change directory to project parent 
 - Update password, of Watson Assistant service instance as noted in section #### 3.1 Gather required details, against ASSISTANT_PASSWORD
 - Update workspace ids, as noted in section #### 3.1 Gather required details, against respective bots
 
-Updated manifest.yml file looks as below
+Updated `manifest.yml` file looks as below
 
 ![Manifest](images/manifest.png)
 
@@ -191,7 +191,7 @@ ibmcloud cf logs watson-assistant-multi-bot-agent
 - Check the logs. Because the conversation with the Travel Bot has not ended, subsequent messages are sent to the Weather Bot itself, without the intervention of the Agent Bot.
 ![AppLogs4](images/app_logs_4.png)
 - In the interface you are asked to enter time for the cab to arrive. Say `12 PM`.
-- Check the logs. Travel Bot responds with an answer. The the conversation with Travel Bot has ended.
+- Check the logs. Travel Bot responds with an answer. The conversation with Travel Bot has ended.
 - The above conversation flow can continue and the Agent Bot will redirect the messages to specific bots based on the intent of user query
 - Some of the basic messages as greetings and bye can be handled by Agent Bot itself.
 - In the interface type `Thank you. Bye`
