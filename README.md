@@ -20,10 +20,10 @@ Advantages with this approach are:
 
 In this code pattern we will use Watson assistant bot for building bots and Nodejs application as orchestration layer.
 
-<TODO> When you complete this code pattern, you will learn
-1.
-2.
-</TODO>
+When you complete this code pattern, you will learn
+1. How to configure a bot to make it Agent Bot
+2. How to configure a specific bot to return control to Agent Bot
+3. How to build an orchestration layer to stitch Agent Bot and specific Bots
 
 ## Watch the Overview Video
 
@@ -85,7 +85,7 @@ run `cd watson-assistant-multi-bot-agent` to change directory to project parent 
 - Click `Create`.
 - Watson Asistant service instance should get created.
 
-#### 2.2 Import json files of different bots
+#### 2.2 Import bots
 - Go to IBM Cloud dashboard and click on the Watson Assistant service instance created in above steps.
 - On the Assistant Dashboard, click `Launch Tool`.
 
@@ -107,7 +107,7 @@ run `cd watson-assistant-multi-bot-agent` to change directory to project parent 
 ![ImportAWorkspace](images/import_a_workspace.png)
 
 - Click `Import` button.
-- Repeat above steps in section 2.2 Import json files of different bots to import `travel_bot.json` and `weather_bot.json`.
+- Repeat above steps in section [Import bots](#22-import-bots) to import `travel_bot.json` and `weather_bot.json`.
 
 ### 3. Configure application with bots details
 
@@ -122,7 +122,7 @@ run `cd watson-assistant-multi-bot-agent` to change directory to project parent 
 
 - Click `View Details`.
 - Copy and save workspace id for later use.
-- Repeat above steps in section 3 Configure application with bots details for all the other bots also.
+- Repeat above steps in section [Configure application with bots details](#3-configure-application-with-bots-details) for all the other bots also.
 - Go to IBM Cloud dashboard and click on the Watson Assistant service instance.
 - Click `Service Credentials` on the left hand navigation bar.
 
@@ -137,9 +137,9 @@ run `cd watson-assistant-multi-bot-agent` to change directory to project parent 
 #### 3.2 Update manifest.yml file with the details gathered
 
 - Under project parent folder, open `manifest.yml` file for editing.
-- Update username, of Watson Assistant service instance as noted in section #### 3.1 Gather required details, against ASSISTANT_USERNAME
-- Update password, of Watson Assistant service instance as noted in section #### 3.1 Gather required details, against ASSISTANT_PASSWORD
-- Update workspace ids, as noted in section #### 3.1 Gather required details, against respective bots
+- Update username, of Watson Assistant service instance as noted in section [Gather required details](#31-gather-required-details), against ASSISTANT_USERNAME
+- Update password, of Watson Assistant service instance as noted in section [Gather required details](#31-gather-required-details), against ASSISTANT_PASSWORD
+- Update workspace ids, as noted in section [Gather required details](#31-gather-required-details), against respective bots
 
 Updated `manifest.yml` file looks as below
 
@@ -202,6 +202,7 @@ ibmcloud cf logs watson-assistant-multi-bot-agent
 
 ![AppLogs](images/app_logs.png)
 
+Legend for above image
 1. Message sent to Agent Bot.
 2. Message redirected to Weather Bot.
 3. Response from Weather Bot.
@@ -218,7 +219,21 @@ ibmcloud cf logs watson-assistant-multi-bot-agent
 14. Response from Agent Bot (end of conversation).
 
 
+# Plug and play of a new bot
+
+1. To add a new bot, create a new bot in the Watson Assistant service instance created earlier for this code pattern or you can use an existing bot that you want to use. Let's say you added a bot for `Restaurant Booking` and named it as `RESTAURANT_BOOKING`.
+2. In `manifest.yml` file, add an entry for new bot as shown below
+```
+WORKSPACE_ID_RESTAURANT_BOOKING: xxxxxxxxxxxxxxxxxxxxxxxx
+```
+3. In the RESTAURANT_BOOKING Bot, when the conversation is over (last node in a dialog), add a context parameter `destination_bot` and value as `AGENT`. It enables the control to be passed to back to the Agent Bot. You can refer to the leaf nodes in other already imported bots for examples.
+4. Open Agent Bot. Add an intent for Restaurant Booking, say restaurant. Then in dialog, add a node for restaurant intent. Add a context parameter `destination_bot` and value as `RESTAURANT_BOOKING`.
+5. Redeploy the application for the configuration changes to take effect.
+6. That's it, you are set to you new `RESTAURANT_BOOKING` bot as a plug and play bot.
+
+
 # Summary
+We introduced an Agent Bot which understands intents of messages. Agent Bot will redirect a message to a specific bot which can handle that message. We saw how to configure Agent Bot, Specific Bots and orchestration application to have this arrangement possible. We also saw how to plug and play this setup to add a new bot.
 
 
 # Troubleshooting
