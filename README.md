@@ -2,7 +2,7 @@
 
 # watson-assistant-multi-bot-agent
 
-## Bots Compose - Agent Bot to redirect messages to specific Bots
+## Compose bots using an agent bot
 
 Generally bots address queries related to a specific domain or topic. If a user wants to query for something from a different domain then the user will have to switch to a different bot and ask question. E.g. If I want to travel to a place, I might query for weather and also book a cab or flight. I might have to end up switching between two bots, weather bot and travel bot. What if I could just have one interface bot which will redirect my messages to a specific bot and get answers to me? Well, this code pattern showcases an implementation of this approach.
 
