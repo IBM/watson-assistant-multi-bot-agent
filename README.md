@@ -33,10 +33,10 @@ Coming soon!!!
 
 ![Architecture](images/architecture.png)
 
-1. User accesses web application and types in a message. Nodejs application, an orchestration later, send user message to agent bot
-2. Agent bot determines the intent of the message and responds with the specific bot details to which the message needs to be redirected.
+1. User accesses web application and types in a message. Nodejs application, an orchestration later, sends user message to agent bot
+2. Agent bot determines the intent of the message and responds with the specific bot details, to which the message needs to be redirected.
 3. Nodejs application sends message to the specific bot (Weather Bot, in this case). Specific bot responds. Conversation continues between user and specific bot.
-4. When the conversation with specific bot is over, user message is then sent to agent bot to determine the intent
+4. When the conversation with specific bot is over, user message is then sent to agent bot to determine the intent.
 5. Nodejs application sends message to the specific bot (Travel Bot, in this case). Specific bot responds. Conversation continues between user and specific bot.
 
 
