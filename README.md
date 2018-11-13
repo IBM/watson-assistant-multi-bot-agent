@@ -1,14 +1,9 @@
-# **Work in progress**
-
-# watson-assistant-multi-bot-agent
-
-## Compose bots using an agent bot
-
+# Compose bots using an agent bot
 Generally bots address queries related to a specific domain or topic. If a user wants to query for something from a different domain then the user will have to switch to a different bot and ask question. E.g. If I want to travel to a place, I might query for weather and also book a cab or flight. I might have to end up switching between two bots, weather bot and travel bot. What if I could just have one interface bot which will redirect my messages to a specific bot and get answers to me? Well, this code pattern showcases an implementation of this approach.
 
 The solution here is to have an agent bot (or an interface bot) and a few other bots which can handle queries for a specific domain, let's call these specific bots. The agent bot knows about the specific bots and also about which domain each of them can handle. When user initiates conversation with agent bot, the agent bot will understand the intent of user query and it will redirect the user query to a specific bot. Subsequent requests from user are redirected to specific bot. When the conversation with the specific bot is over or when the specific bot is not able to handle the request, the control is given back to agent bot which will then redirect the messages to appropriate bot.
 
-This approach provides and seamless experience for the user. It can be used by organisations which provide a host of services to its customers like financial services, tours and travel agencies, news agencies etc..
+This approach provides seamless experience for users. It can be used by organisations which provide a host of services to its customers like financial services, tours and travel agencies, news agencies etc..
 
 Advantages with this approach are:
 - plug and play the bots
@@ -20,14 +15,11 @@ Advantages with this approach are:
 
 In this code pattern we will use Watson assistant bot for building bots and Nodejs application as orchestration layer.
 
-When you complete this code pattern, you will learn
-1. How to configure a bot to make it Agent Bot
-2. How to configure a specific bot to return control to Agent Bot
-3. How to build an orchestration layer to stitch Agent Bot and specific Bots
+When the reader has completed this Code Pattern, they will understand how to:
 
-## Watch the Overview Video
-
-Coming soon!!!
+* How to configure a bot to make it Agent Bot
+* How to configure a specific bot to return control to Agent Bot
+* How to build an orchestration layer to stitch Agent Bot and specific Bots
 
 ## Flow
 
@@ -40,29 +32,17 @@ Coming soon!!!
 5. Nodejs application sends message to the specific bot (Travel Bot, in this case). Specific bot responds. Conversation continues between user and specific bot.
 
 
-## Included components
+# Watch the Video
+Coming soon
 
-* [Watson Assistant](https://console.bluemix.net/catalog/services/watson-assistant-formerly-conversation): Add a natural language interface to your application to automate interactions with your end users. Common applications include virtual agents and chat bots that can integrate and communicate on any channel or device.
-* [SDK of Node.js](https://console.bluemix.net/docs/runtimes/nodejs/index.html#nodejs_runtime): The Node.js runtime on IBM® Cloud is powered by the sdk-for-nodejs buildpack. The sdk-for-nodejs buildpack provides a complete runtime environment for Node.js apps.
-
-
-## Featured technologies
-
-
-## Prerequisites
-- IBM Cloud Account: If you do not have an IBM Cloud account already, then create one [here](https://console.bluemix.net/registration/).
-- Git: If not already setup, [download and install git](https://git-scm.com/downloads).
-- IBM Cloud CLI: If not already setup, [install IBM Cloud CLI](https://console.bluemix.net/docs/cli/reference/ibmcloud/download_cli.html#install_use).
-
-## Steps
-
+# Steps
 1. Clone git repo
 2. Create bots.
 3. Configure application with bots details.
 4. Deploy application to IBM Cloud.
 5. Run application.
 
-### 1. Clone git repo
+## 1. Clone git repo
 
 - On command prompt run the below command to clone the git repo.
 ```
@@ -75,9 +55,9 @@ git clone https://github.com/IBM/watson-assistant-multi-bot-agent.git
 run `cd watson-assistant-multi-bot-agent` to change directory to project parent folder
 
 
-### 2. Create bots
+## 2. Create bots
 
-#### 2.1 Create Watson Assistant service instance
+### 2.1 Create Watson Assistant service instance
 - Click this [link](https://console.bluemix.net/catalog/services/watson-assistant-formerly-conversation) to create Watson assistant service.
 - Enter the service name as `wbc-Watson Assistant (formerly Conversation)-bots`. You can choose to enter any name you like.
 - Ensure you select the right region, organisation and space.
@@ -85,7 +65,7 @@ run `cd watson-assistant-multi-bot-agent` to change directory to project parent 
 - Click `Create`.
 - Watson Asistant service instance should get created.
 
-#### 2.2 Import bots
+### 2.2 Import bots
 - Go to IBM Cloud dashboard and click on the Watson Assistant service instance created in above steps.
 - On the Assistant Dashboard, click `Launch Tool`.
 
@@ -109,9 +89,9 @@ run `cd watson-assistant-multi-bot-agent` to change directory to project parent 
 - Click `Import` button.
 - Repeat above steps in section [Import bots](#22-import-bots) to import `travel_bot.json` and `weather_bot.json`.
 
-### 3. Configure application with bots details
+## 3. Configure application with bots details
 
-#### 3.1 Gather required details
+### 3.1 Gather required details
 
 - Go to IBM Cloud dashboard and click on the Watson Assistant service instance.
 - On the Assistant Dashboard, click `Launch Tool`.
@@ -134,7 +114,7 @@ run `cd watson-assistant-multi-bot-agent` to change directory to project parent 
 
 - Copy `url`, `username` and `password` and save them for later use.
 
-#### 3.2 Update manifest.yml file with the details gathered
+### 3.2 Update manifest.yml file with the details gathered
 
 - Under project parent folder, open `manifest.yml` file for editing.
 - Update username, of Watson Assistant service instance as noted in section [Gather required details](#31-gather-required-details), against ASSISTANT_USERNAME
@@ -146,7 +126,7 @@ Updated `manifest.yml` file looks as below
 ![Manifest](images/manifest.png)
 
 
-### 4. Deploy application to IBM Cloud
+## 4. Deploy application to IBM Cloud
 - On command prompt, navigate to project parent folder
 - On command prompt, login to IBM Cloud using `ibmcloud login` or `ibmcloud login --sso` (for federated login).
 - Ensure that you are in the right organisation, space and region using the below command.
@@ -161,7 +141,7 @@ ibmcloud cf push
 - Ensure that the application is deployed to IBM Cloud successfully. If you see any errors in logs, fix them and redeploy the application.
 
 
-### 5. Run application
+## 6. Run the application
 - On a browser, Login to IBM Cloud and go to dashboard. There you will see that the application is deployed and running.
 - Click on the application and click on `Visit App URL`.
 
@@ -219,7 +199,7 @@ Legend for above image
 14. Response from Agent Bot (end of conversation).
 
 
-# Plug and play of a new bot
+# Plug and play process for a new bot
 
 1. To add a new bot, create a new bot in the Watson Assistant service instance created earlier for this code pattern or you can use an existing bot that you want to use. Let's say you added a bot for `Restaurant Booking` and named it as `RESTAURANT_BOOKING`.
 2. In `manifest.yml` file, add an entry for new bot as shown below
@@ -238,9 +218,18 @@ We introduced an Agent Bot which understands intents of messages. Agent Bot will
 
 # Troubleshooting
 
-See [Debugging.md](./Debugging.md)
+* The application page displays but there is no greetings message, when the application pages loads.
+  * Verify Watson Assistant username and password are correct.
+  * Verify workspace_id of the agent bot is correct.
+
+* No response for a chat message
+Verify workspace_id of a specific bots is correct.
+
+* If there is any other issue, check application logs using the below command
+```
+ibmcloud cf logs <app-name> --recent
+```
 
 
 # License
-
 [Apache 2.0](LICENSE)
