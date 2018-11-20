@@ -1,7 +1,7 @@
 # Compose domain specific bots using an agent bot
-A domain specific bot addresses queries related to a specific domain or topic. Some examples are - Travel Bot(Travel related conversations), Weather Bot (Weather related conversations). 
+A domain specific bot addresses queries related to a specific domain or topic. Some examples are - Travel bot(Travel related conversations), Weather bot (Weather related conversations). 
 
-If a user wants to have a cross-domain conversation, then the user will have to switch between the different Bots. 
+If a user wants to have a cross-domain conversation, then the user will have to switch between the different bots. 
 
 There are scenarios where an user wants to have a conversation involving multiple domains.
 For example - When I want to travel to a place, I want to query for the weather and then book a cab or flight. I might have to end up switching between two bots, weather bot and travel bot. What if I could just have one interface bot which will redirect my messages to a specific bot and get answers to me? 
