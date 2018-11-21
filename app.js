@@ -26,18 +26,26 @@ var app = express();
 app.use(express.static('./public')); // load UI from public folder
 app.use(bodyParser.json());
 
+var assistantAPIKey = process.env["ASSISTANT_IAM_API_KEY"];
+var assistantURL = process.env["ASSISTANT_IAM_URL"];
+var assistantVersion = process.env["VERSION"];
+
 // Create the service wrapper
 
 var assistant = new AssistantV1({
-  version: '2018-07-10'
+  version: assistantVersion,
+  iam_apikey: assistantAPIKey,
+  url: assistantURL
 });
+
 
 // Endpoint to be call from the client side
 app.post('/api/message', function (req, res) {
   console.log("");
   var workspace = getDestinationBot(req.body.context) || '<workspace-id>';
+  //workspace = '2601a4af-82bd-4097-b5fb-83477ba0d257';
   if (!workspace || workspace === '<workspace-id>') {
-    return res.json({ 
+    return res.json({
       'output': {
         'text': 'The app has not been configured with a <b>WORKSPACE_ID</b> environment variable. Please refer to the ' + '<a href="https://github.com/watson-developer-cloud/assistant-simple">README</a> documentation on how to set this variable. <br>' + 'Once a workspace has been defined the intents may be imported from ' + '<a href="https://github.com/watson-developer-cloud/assistant-simple/blob/master/training/car_workspace.json">here</a> in order to get a working application.'
       }
@@ -53,6 +61,7 @@ app.post('/api/message', function (req, res) {
   assistant.message(payload, function (err, data) {
     console.log("Message: " + JSON.stringify(payload.input));
     if (err) {
+      console.log("Error: " + JSON.stringify(err))
       return res.status(err.code || 500).json(err);
     }
 
