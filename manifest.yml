@@ -6,10 +6,9 @@ applications:
   instances: 1
   random-route: true
   env:
-    ASSISTANT_USERNAME: <Watson assistant service instance username>
-    ASSISTANT_PASSWORD: <Watson assistant service instance password>
-    ASSISTANT_IAM_APIKEY: <Watson assistant service instance API Key>
-    ASSISTANT_IAM_URL: <Watson assistant service instance URL>
-    WORKSPACE_ID_AGENT: <Workspace id of Agent Bot>
-    WORKSPACE_ID_WEATHER: <Workspace id of Weather Bot>
-    WORKSPACE_ID_TRAVEL: <Workspace id of Travel Bot>
+    WORKSPACE_ID_AGENT: <Workspace ID of agent bot>
+    WORKSPACE_ID_TRAVEL: <Workspace ID of travel bot>
+    WORKSPACE_ID_WEATHER: <Workspace ID of weather bot>
+    ASSISTANT_IAM_API_KEY: <API Key for service instance>
+    ASSISTANT_IAM_URL: <URL of service instance>
+    VERSION: <version of waston assistant sdk apis>
