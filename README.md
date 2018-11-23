@@ -36,7 +36,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 Coming soon
 
 # Steps
-1. Clone git repo
+1. Clone git repo.
 2. Create bots.
 3. Configure application with bots details.
 4. Deploy application to IBM Cloud.
@@ -95,31 +95,29 @@ run `cd watson-assistant-multi-bot-agent` to change directory to project parent 
 
 - Go to IBM Cloud dashboard and click on the Watson Assistant service instance.
 - On the Assistant Dashboard, click `Launch Tool`.
-- Click `Workspaces` tab.
+- Click `Skills` tab.
+
+![SkillsTab](images/SkillsTab.png)
+
 - On `agentBot` click `actions`, the three vertical dots on the top right corner.
 
 ![BotActions](images/bot_actions.png)
 
-- Click `View Details`.
-- Copy and save workspace id for later use.
+- Click `View API Details`.
+- Copy and save `Workspace ID` for later use.
 - Repeat above steps in section [Configure application with bots details](#3-configure-application-with-bots-details) for all the other bots also.
+
 - Go to IBM Cloud dashboard and click on the Watson Assistant service instance.
-- Click `Service Credentials` on the left hand navigation bar.
+- Copy `API Key` and `Url` using the copy buttons as shown in below image or using the `Show Credentials` and copying the field contents. Save them in a text file for later use.
+![CopyAPIKeyAndUrl](images/CopyAPIKeyAndUrl.png)
 
-![ServiceCredentialsLink](images/service_credentials_link.png)
-
-- Click on `View Credentials`.
-
-![ViewCredentials](images/view_credentials.png)
-
-- Copy `url`, `username` and `password` and save them for later use.
 
 ### 3.2 Update manifest.yml file with the details gathered
 
 - Under project parent folder, open `manifest.yml` file for editing.
-- Update username, of Watson Assistant service instance as noted in section [Gather required details](#31-gather-required-details), against ASSISTANT_USERNAME
-- Update password, of Watson Assistant service instance as noted in section [Gather required details](#31-gather-required-details), against ASSISTANT_PASSWORD
-- Update workspace ids, as noted in section [Gather required details](#31-gather-required-details), against respective bots
+- Update `ASSISTANT_IAM_API_KEY` with Watson Assistant service instance's API Key as noted in section [Gather required details](#31-gather-required-details)
+- Update `ASSISTANT_IAM_URL` with Watson Assistant service instance's Url as noted in section [Gather required details](#31-gather-required-details)
+- Update `WORKSPACE_ID_AGENT`, `WORKSPACE_ID_TRAVEL`, `WORKSPACE_ID_WEATHER` with Workspace IDs of respective bots as noted in section [Gather required details](#31-gather-required-details)
 
 Updated `manifest.yml` file looks as below
 
@@ -142,8 +140,8 @@ ibmcloud cf push
 
 
 ## 6. Run the application
-- On a browser, Login to IBM Cloud and go to dashboard. There you will see that the application is deployed and running.
-- Click on the application and click on `Visit App URL`.
+- [Login](https://console.bluemix.net/) to IBM Cloud and go to dashboard. The application you deployed should show up and it should be in running state.
+- Click on the application and again click on `Visit App URL`.
 
 ![VisitAppURL](images/visit_app_url.png)
 
