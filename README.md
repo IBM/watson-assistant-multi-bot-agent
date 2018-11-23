@@ -71,18 +71,19 @@ run `cd watson-assistant-multi-bot-agent` to change directory to project parent 
 
 ![LaunchTool](images/launch_tool.png)
 
-- Click `Workspaces` tab.
+- Click `Skills` tab.
 
-![Workspaces](images/workspaces.png)
+![SkillsTab](images/SkillsTab.png)
 
-- Click `Import workspace` button.
+- Click `Create New` button.
+- Click on `Import Skill` tab.
 
-![ImportWorkspace](images/import_workspace.png)
+![ImportSkill](images/ImportSkill.png)
 
-- Click on `Choose a file`.
+- Click on `Choose JSON file`.
 - Browse to the cloned repository parent folder -> WA.
 - Select `agent-bot.json` and click `Open`.
-- Under `Import`, select the option `Everything (Intents, Entities, and Dialog)`.
+- Select the option `Everything (Intents, Entities, and Dialog)`.
 
 ![ImportAWorkspace](images/import_a_workspace.png)
 
