@@ -40,7 +40,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 
 # Watch the Video
-Coming soon
+[![](https://img.youtube.com/vi/godEYin0IYA/0.jpg)](https://youtu.be/godEYin0IYA)
 
 # Steps
 1. Clone git repo.
