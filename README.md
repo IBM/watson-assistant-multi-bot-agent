@@ -65,34 +65,35 @@ run `cd watson-assistant-multi-bot-agent` to change directory to project parent 
 ## 2. Create bots
 
 ### 2.1 Create Watson Assistant service instance
-- Click this [link](https://console.bluemix.net/catalog/services/watson-assistant-formerly-conversation) to create Watson assistant service.
-- Enter the service name as `wbc-Watson Assistant (formerly Conversation)-bots`. You can choose to enter any name you like.
+- Click this [link](https://cloud.ibm.com/catalog/services/watson-assistant) to create Watson assistant service.
+- Enter the service name as `Watson Assistant-bots`. You can choose to enter any name you like.
 - Ensure you select the right region, organisation and space.
 - Under `Pricing Plans`, select `Lite` plan.
 - Click `Create`.
 - Watson Asistant service instance should get created.
 
 ### 2.2 Import bots
-- Go to IBM Cloud dashboard and click on the Watson Assistant service instance created in above steps.
-- On the Assistant Dashboard, click `Launch Tool`.
+- Go to IBM Cloud Resource list and click on the Watson Assistant service instance created in above steps.
+- On the Watson Assistant Resource list page, click `Launch Watson Assistant`.
 
 ![LaunchTool](images/launch_tool.png)
 
-- Click `Skills` tab.
+- Click `Skills` tab in the side bar.
 
 ![SkillsTab](images/SkillsTab.png)
 
-- Click `Create New` button.
-- Click on `Import Skill` tab.
+- Click the `Create skill` button.
+- Select the `Dialog skill` box
+- Click the `Next` button.
+- Select the `Import skill` tab.
 
 ![ImportSkill](images/ImportSkill.png)
 
 - Click on `Choose JSON file`.
 - Browse to the cloned repository parent folder -> WA.
 - Select `agent-bot.json` and click `Open`.
-- Select the option `Everything (Intents, Entities, and Dialog)`.
 
-![ImportAWorkspace](images/import_a_workspace.png)
+![ImportAWorkspace](images/import_json_file.png)
 
 - Click `Import` button.
 - Repeat above steps in section [Import bots](#22-import-bots) to import `travel_bot.json` and `weather_bot.json`.
@@ -101,9 +102,9 @@ run `cd watson-assistant-multi-bot-agent` to change directory to project parent 
 
 ### 3.1 Gather required details
 
-- Go to IBM Cloud dashboard and click on the Watson Assistant service instance.
-- On the Assistant Dashboard, click `Launch Tool`.
-- Click `Skills` tab.
+- Go to IBM Cloud Resource list and click on the Watson Assistant service instance.
+- On the Watson Assistant Resource list page, click `Launch Watson Assistant`.
+- Click `Skills` tab in the side bar.
 
 ![SkillsTab](images/SkillsTab.png)
 
@@ -115,7 +116,7 @@ run `cd watson-assistant-multi-bot-agent` to change directory to project parent 
 - Copy and save `Workspace ID` for later use.
 - Repeat above steps in section [Configure application with bots details](#3-configure-application-with-bots-details) for all the other bots also.
 
-- Go to IBM Cloud dashboard and click on the Watson Assistant service instance.
+- Go to IBM Cloud Resource list and click on the Watson Assistant service instance.
 - Copy `API Key` and `Url` using the copy buttons as shown in below image or using the `Show Credentials` and copying the field contents. Save them in a text file for later use.
 ![CopyAPIKeyAndUrl](images/CopyAPIKeyAndUrl.png)
 
@@ -148,7 +149,8 @@ ibmcloud cf push
 
 
 ## 6. Run the application
-- [Login](https://console.bluemix.net/) to IBM Cloud and go to dashboard. The application you deployed should show up and it should be in running state.
+- [Login](https://cloud.ibm.com/) to IBM Cloud and from the dashboard.
+- Click on `Cloud Foundry apps`. The application you deployed should be listed and it should be in running state.
 - Click on the application and again click on `Visit App URL`.
 
 ![VisitAppURL](images/visit_app_url.png)
