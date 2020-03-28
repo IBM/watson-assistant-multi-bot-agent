@@ -113,7 +113,7 @@ run `cd watson-assistant-multi-bot-agent` to change directory to project parent 
 ![BotActions](images/bot_actions.png)
 
 - Click `View API Details`.
-- Copy and save `Workspace ID` for later use.
+- Copy and save `Skill ID` for later use. It can be interchangeably used as Workspace ID.
 - Repeat above steps in section [Configure application with bots details](#3-configure-application-with-bots-details) for all the other bots also.
 
 - Go to IBM Cloud Resource list and click on the Watson Assistant service instance.
@@ -130,7 +130,7 @@ run `cd watson-assistant-multi-bot-agent` to change directory to project parent 
 
 Updated `manifest.yml` file looks as below
 
-![Manifest](images/manifest.png)
+![Manifest](images/manifest.png) 
 
 
 ## 4. Deploy application to IBM Cloud

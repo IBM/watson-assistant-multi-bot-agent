@@ -18,7 +18,8 @@
 
 var express = require('express'); // app server
 var bodyParser = require('body-parser'); // parser for post requests
-var AssistantV1 = require('watson-developer-cloud/assistant/v1'); // watson sdk
+const AssistantV1 = require('ibm-watson/assistant/v1');
+const { IamAuthenticator } = require('ibm-watson/auth');
 
 var app = express();
 
@@ -30,12 +31,15 @@ var assistantAPIKey = process.env["ASSISTANT_IAM_API_KEY"];
 var assistantURL = process.env["ASSISTANT_IAM_URL"];
 var assistantVersion = process.env["VERSION"];
 
-// Create the service wrapper
+console.log("assistantVersion = " + assistantVersion);
 
-var assistant = new AssistantV1({
+// Create the service wrapper
+const assistant = new AssistantV1({
   version: assistantVersion,
-  iam_apikey: assistantAPIKey,
-  url: assistantURL
+  authenticator: new IamAuthenticator({
+    apikey: assistantAPIKey,
+  }),
+  url: assistantURL,
 });
 
 
@@ -43,7 +47,7 @@ var assistant = new AssistantV1({
 app.post('/api/message', function (req, res) {
   console.log("");
   var workspace = getDestinationBot(req.body.context) || '<workspace-id>';
-  //workspace = '2601a4af-82bd-4097-b5fb-83477ba0d257';
+  console.log("workspace = " + workspace);
   if (!workspace || workspace === '<workspace-id>') {
     return res.json({
       'output': {
@@ -52,82 +56,77 @@ app.post('/api/message', function (req, res) {
     });
   }
   var payload = {
-    workspace_id: workspace,
+    workspaceId: workspace,
     context: req.body.context || {},
     input: req.body.input || {}
   };
 
   // Send the input to the assistant service
   assistant.message(payload, function (err, data) {
+    data = data.result
     console.log("Message: " + JSON.stringify(payload.input));
     if (err) {
-      console.log("Error: " + JSON.stringify(err))
+      console.log("Error occurred: " + JSON.stringify(err.message))
       return res.status(err.code || 500).json(err);
     }
 
 
-    if( isRedirect(data.context) ){
+    if (isRedirect(data.context)) {
       // When there is a redirect, get the redirect bot workspace id
-      payload.workspace_id = getDestinationBot(data.context);
+      payload.workspaceId = getDestinationBot(data.context);
       // When there is a redirect, update destination bot in context so it persists along with the conversation
       payload.context.destination_bot = data.context.destination_bot;
       // Where there is redirect, old conversation_id is not needed. Delete it
       delete payload.context.conversation_id;
       // For redirect, no user action is needed. Call the redirect bot automatically and send back that response to user
       assistant.message(payload, function (err, data) {
-        console.log("Message: " + JSON.stringify(payload.input));
+        data = data.result
         if (err) {
           return res.status(err.code || 500).json(err);
         }
         return res.json(updateMessage(payload, data));
       });
-    }else{ // There is no redirect. So send back the response to user for further action
-    return res.json(updateMessage(payload, data));
+    } else { // There is no redirect. So send back the response to user for further action
+      return res.json(updateMessage(payload, data));
     }
 
   });
 });
 
 // The function checks if the bot response says messages to be redirected
-function isRedirect(context){
-  if( context && context.redirect_to_another_bot ){
+function isRedirect(context) {
+  if (context && context.redirect_to_another_bot) {
     var isRedirect = context.redirect_to_another_bot;
-      if( isRedirect == true ){
-        return true;
-      }else{
-        return false;
-      }
+    if (isRedirect == true) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
   }
 }
 
 // The agent bot decides which bot the request should be redirected to and updates that in context variable.
 // Get worspace_id for redirected bot details so messages can be sent to that bot
-function getDestinationBot(context){
+function getDestinationBot(context) {
   var destination_bot = null;
-  if( context && context.destination_bot ){
+  if (context && context.destination_bot) {
     destination_bot = context.destination_bot.toUpperCase();
   }
 
-  var wsId = process.env[ "WORKSPACE_ID_" + destination_bot];
+  var wsId = process.env["WORKSPACE_ID_" + destination_bot];
 
-  if( !wsId ){
+  if (!wsId) {
     wsId = process.env["WORKSPACE_ID_AGENT"];
   }
 
-  if( !destination_bot ){
+  if (!destination_bot) {
     destination_bot = "AGENT";
   }
 
   console.log("Message being sent to: " + destination_bot + " bot");
   return wsId;
-
-  // if( context && context.destination_bot && context.destination_bot.toUpperCase() === "TRAVEL" ){
-  //   return process.env['WORKSPACE_ID_TRAVEL'];
-  // }else if( context && context.destination_bot && context.destination_bot.toUpperCase() === "WEATHER" ){
-  //   return process.env['WORKSPACE_ID_WEATHER'];
-  // }else{
-  //   return process.env["WORKSPACE_ID_AGENT"];
-  // }
 }
 /**
  * Updates the response text using the intent confidence
