@@ -22,7 +22,8 @@
     "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
-    "watson-developer-cloud": "^3.13.0"
+    "watson-developer-cloud": "^3.13.0",
+    "ibm-watson": "^5.4.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
