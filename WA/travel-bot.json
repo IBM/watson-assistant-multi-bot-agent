@@ -1,38 +1,63 @@
 {
-  "name": "travelBot",
   "intents": [
+    {
+      "intent": "bye",
+      "examples": [
+        {
+          "text": "bye"
+        },
+        {
+          "text": "bye bye"
+        },
+        {
+          "text": "c ya"
+        },
+        {
+          "text": "good bye"
+        },
+        {
+          "text": "ok bye"
+        },
+        {
+          "text": "see you"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "greetings",
+      "examples": [
+        {
+          "text": "greetings"
+        },
+        {
+          "text": "Hello"
+        },
+        {
+          "text": "Hey"
+        },
+        {
+          "text": "Heyya"
+        },
+        {
+          "text": "Hi"
+        },
+        {
+          "text": "What's up?"
+        }
+      ]
+    },
     {
       "intent": "reserve",
       "examples": [
         {
-          "text": "reservation for"
-        },
-        {
-          "text": "please book"
-        },
-        {
-          "text": "please reserve"
-        },
-        {
-          "text": "please arrange"
-        },
-        {
-          "text": "make a reservation for"
-        },
-        {
-          "text": "please make a booking for"
+          "text": "arrange"
         },
         {
           "text": "book"
         },
         {
-          "text": "reserve"
-        },
-        {
-          "text": "arrange"
-        },
-        {
-          "text": "make a booking"
+          "text": "booking for"
         },
         {
           "text": "kindly arrange"
@@ -44,71 +69,28 @@
           "text": "kindly make reservation for"
         },
         {
-          "text": "booking for"
-        }
-      ]
-    },
-    {
-      "intent": "bye",
-      "examples": [
-        {
-          "text": "bye bye"
+          "text": "make a booking"
         },
         {
-          "text": "good bye"
+          "text": "make a reservation for"
         },
         {
-          "text": "bye"
+          "text": "please arrange"
         },
         {
-          "text": "see you"
+          "text": "please book"
         },
         {
-          "text": "c ya"
+          "text": "please make a booking for"
         },
         {
-          "text": "ok bye"
-        }
-      ],
-      "description": ""
-    },
-    {
-      "intent": "greetings",
-      "examples": [
-        {
-          "text": "Hey"
+          "text": "please reserve"
         },
         {
-          "text": "Hi"
+          "text": "reservation for"
         },
         {
-          "text": "What's up?"
-        },
-        {
-          "text": "greetings"
-        },
-        {
-          "text": "Heyya"
-        },
-        {
-          "text": "Hello"
-        }
-      ]
-    },
-    {
-      "intent": "thankyou",
-      "examples": [
-        {
-          "text": "Thank you"
-        },
-        {
-          "text": "Thanks a lot"
-        },
-        {
-          "text": "Thank you very much"
-        },
-        {
-          "text": "Thanks"
+          "text": "reserve"
         }
       ]
     },
@@ -116,40 +98,41 @@
       "intent": "status",
       "examples": [
         {
-          "text": "status of"
-        },
-        {
           "text": "can you please help me with status of"
         },
         {
           "text": "please let me know the status"
         },
         {
-          "text": "what is the status"
+          "text": "status of"
         },
         {
           "text": "status please"
+        },
+        {
+          "text": "what is the status"
+        }
+      ]
+    },
+    {
+      "intent": "thankyou",
+      "examples": [
+        {
+          "text": "Thanks"
+        },
+        {
+          "text": "Thanks a lot"
+        },
+        {
+          "text": "Thank you"
+        },
+        {
+          "text": "Thank you very much"
         }
       ]
     }
   ],
   "entities": [
-    {
-      "entity": "sys-percentage",
-      "values": []
-    },
-    {
-      "entity": "sys-number",
-      "values": []
-    },
-    {
-      "entity": "sys-date",
-      "values": []
-    },
-    {
-      "entity": "sys-time",
-      "values": []
-    },
     {
       "entity": "mode_of_transportation",
       "values": [
@@ -157,9 +140,9 @@
           "type": "synonyms",
           "value": "Cab",
           "synonyms": [
+            "mini cab",
             "Taxi",
-            "taxi cab",
-            "mini cab"
+            "taxi cab"
           ]
         },
         {
@@ -167,10 +150,10 @@
           "value": "flight",
           "synonyms": [
             "air journey",
+            "air trip",
             "domestic flight",
             "plane journey",
-            "plane trip",
-            "air trip"
+            "plane trip"
           ]
         }
       ]
@@ -180,37 +163,69 @@
       "values": []
     },
     {
-      "entity": "sys-location",
+      "entity": "sys-date",
       "values": []
     },
     {
-      "entity": "sys-person",
+      "entity": "sys-number",
+      "values": []
+    },
+    {
+      "entity": "sys-percentage",
+      "values": []
+    },
+    {
+      "entity": "sys-time",
       "values": []
     }
   ],
-  "language": "en",
   "metadata": {
     "api_version": {
-      "major_version": "v1",
-      "minor_version": "2018-07-10"
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
     }
   },
-  "description": "Bot for booking flight,cab and knowing status of flight!",
   "dialog_nodes": [
     {
-      "type": "event_handler",
+      "type": "standard",
+      "title": "Anything else",
       "output": {
         "text": {
           "values": [
-            "Please enter the time you require cab!"
+            "I didn't understand. You can try rephrasing.",
+            "Can you reword your statement? I'm not understanding.",
+            "I didn't get your meaning."
           ],
           "selection_policy": "sequential"
         }
       },
-      "parent": "slot_15_1508426098680",
-      "event_name": "nomatch",
-      "dialog_node": "handler_21_1508426194221",
-      "previous_sibling": "handler_16_1508426098680"
+      "context": {
+        "destination_bot": "agent"
+      },
+      "metadata": {},
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_26_1538577242962"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_12_1508426016722",
+      "context": {
+        "cabRequiredDate": "@sys-date"
+      },
+      "conditions": "@sys-date",
+      "event_name": "input",
+      "dialog_node": "handler_13_1508426016722",
+      "previous_sibling": "handler_14_1508426016722"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": "Please enter the date you require cab"
+      },
+      "parent": "slot_12_1508426016722",
+      "event_name": "focus",
+      "dialog_node": "handler_14_1508426016722"
     },
     {
       "type": "event_handler",
@@ -249,37 +264,18 @@
     },
     {
       "type": "event_handler",
-      "parent": "slot_12_1508426016722",
-      "context": {
-        "cabRequiredDate": "@sys-date"
-      },
-      "conditions": "@sys-date",
-      "event_name": "input",
-      "dialog_node": "handler_13_1508426016722",
-      "previous_sibling": "handler_14_1508426016722"
-    },
-    {
-      "type": "event_handler",
       "output": {
-        "text": "Please enter the date you require cab"
+        "text": {
+          "values": [
+            "Please enter the time you require cab!"
+          ],
+          "selection_policy": "sequential"
+        }
       },
-      "parent": "slot_12_1508426016722",
-      "event_name": "focus",
-      "dialog_node": "handler_14_1508426016722"
-    },
-    {
-      "type": "slot",
-      "parent": "node_3_1508425828948",
-      "variable": "$cabRequiredTime",
-      "dialog_node": "slot_15_1508426098680",
-      "previous_sibling": "slot_12_1508426016722"
-    },
-    {
-      "type": "slot",
-      "parent": "node_3_1508425828948",
-      "variable": "$cabRequiredDate",
-      "dialog_node": "slot_12_1508426016722",
-      "previous_sibling": "handler_6_1508425932620"
+      "parent": "slot_15_1508426098680",
+      "event_name": "nomatch",
+      "dialog_node": "handler_21_1508426194221",
+      "previous_sibling": "handler_16_1508426098680"
     },
     {
       "type": "event_handler",
@@ -288,6 +284,38 @@
       "disabled": true,
       "event_name": "focus",
       "dialog_node": "handler_6_1508425932620"
+    },
+    {
+      "type": "standard",
+      "title": "Greetings",
+      "output": {
+        "text": {
+          "values": [
+            "Hi, I can help you with domestic flight booking,cab booking and status of flights!"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "conditions": "#greetings",
+      "dialog_node": "node_1_1508425352942",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "title": "Bye",
+      "output": {
+        "text": {
+          "values": [],
+          "selection_policy": "sequential"
+        }
+      },
+      "context": {
+        "destination_bot": "agent"
+      },
+      "metadata": {},
+      "conditions": "#bye",
+      "dialog_node": "node_26_1538577242962",
+      "previous_sibling": "node_5_1508425880755"
     },
     {
       "type": "frame",
@@ -312,38 +340,6 @@
     },
     {
       "type": "standard",
-      "title": "Bye",
-      "output": {
-        "text": {
-          "values": [],
-          "selection_policy": "sequential"
-        }
-      },
-      "context": {
-        "destination_bot": "agent"
-      },
-      "metadata": {},
-      "conditions": "#bye",
-      "dialog_node": "node_26_1538577242962",
-      "previous_sibling": "node_5_1508425880755"
-    },
-    {
-      "type": "standard",
-      "title": "Greetings",
-      "output": {
-        "text": {
-          "values": [
-            "Hi, I can help you with domestic flight booking,cab booking and status of flights!"
-          ],
-          "selection_policy": "sequential"
-        }
-      },
-      "conditions": "#greetings",
-      "dialog_node": "node_1_1508425352942",
-      "previous_sibling": "Welcome"
-    },
-    {
-      "type": "standard",
       "title": "Thank You",
       "output": {
         "text": {
@@ -360,25 +356,18 @@
       "previous_sibling": "node_3_1508425828948"
     },
     {
-      "type": "standard",
-      "title": "Anything else",
-      "output": {
-        "text": {
-          "values": [
-            "I didn't understand. You can try rephrasing.",
-            "Can you reword your statement? I'm not understanding.",
-            "I didn't get your meaning."
-          ],
-          "selection_policy": "sequential"
-        }
-      },
-      "context": {
-        "destination_bot": "agent"
-      },
-      "metadata": {},
-      "conditions": "anything_else",
-      "dialog_node": "Anything else",
-      "previous_sibling": "node_26_1538577242962"
+      "type": "slot",
+      "parent": "node_3_1508425828948",
+      "variable": "$cabRequiredDate",
+      "dialog_node": "slot_12_1508426016722",
+      "previous_sibling": "handler_6_1508425932620"
+    },
+    {
+      "type": "slot",
+      "parent": "node_3_1508425828948",
+      "variable": "$cabRequiredTime",
+      "dialog_node": "slot_15_1508426098680",
+      "previous_sibling": "slot_12_1508426016722"
     },
     {
       "type": "standard",
@@ -395,8 +384,9 @@
       "dialog_node": "Welcome"
     }
   ],
-  "workspace_id": "6903a1e7-734f-4073-9cf9-6f5b660f4b30",
   "counterexamples": [],
   "learning_opt_out": false,
-  "status": "Available"
+  "name": "travelBot",
+  "language": "en",
+  "description": "Bot for booking flight,cab and knowing status of flight!"
 }
