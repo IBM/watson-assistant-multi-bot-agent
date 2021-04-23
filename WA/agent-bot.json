@@ -1,14 +1,46 @@
 {
-  "name": "agentBot",
   "intents": [
+    {
+      "intent": "bye",
+      "examples": [
+        {
+          "text": "bye"
+        },
+        {
+          "text": "bye bye"
+        },
+        {
+          "text": "c u"
+        },
+        {
+          "text": "c ya"
+        },
+        {
+          "text": "good bye"
+        },
+        {
+          "text": "ok bye"
+        },
+        {
+          "text": "ok good bye"
+        },
+        {
+          "text": "see you"
+        },
+        {
+          "text": "That's it"
+        }
+      ],
+      "description": ""
+    },
     {
       "intent": "General_Greetings",
       "examples": [
         {
-          "text": "Good evening"
+          "text": "Good day"
         },
         {
-          "text": "Good day"
+          "text": "Good evening"
         },
         {
           "text": "Good morning"
@@ -23,22 +55,22 @@
           "text": "Have you been well?"
         },
         {
+          "text": "Hello"
+        },
+        {
           "text": "Hello Agent"
         },
         {
           "text": "Hello I am looking for some help here"
         },
         {
-          "text": "Hello"
-        },
-        {
           "text": "Hey how are you doing"
         },
         {
-          "text": "Hey there all"
+          "text": "Hey there"
         },
         {
-          "text": "Hey there"
+          "text": "Hey there all"
         },
         {
           "text": "Hey twin"
@@ -89,19 +121,33 @@
       "description": "Greet the bot."
     },
     {
+      "intent": "thankyou",
+      "examples": [
+        {
+          "text": "Thanks"
+        },
+        {
+          "text": "Thanks a lot"
+        },
+        {
+          "text": "Thank you"
+        },
+        {
+          "text": "Thank you very much"
+        }
+      ]
+    },
+    {
       "intent": "travel",
       "examples": [
         {
           "text": "arrange"
         },
         {
-          "text": "travel"
-        },
-        {
           "text": "book"
         },
         {
-          "text": "reserve"
+          "text": "booking"
         },
         {
           "text": "kindly arrange"
@@ -110,10 +156,13 @@
           "text": "reservation"
         },
         {
-          "text": "booking"
+          "text": "reserve"
         },
         {
           "text": "status"
+        },
+        {
+          "text": "travel"
         }
       ],
       "description": "Connect to travel bot"
@@ -122,19 +171,16 @@
       "intent": "weather",
       "examples": [
         {
-          "text": "rain"
-        },
-        {
-          "text": "weather"
-        },
-        {
-          "text": "temperature"
-        },
-        {
           "text": "cloudy"
         },
         {
           "text": "heat"
+        },
+        {
+          "text": "pleasant"
+        },
+        {
+          "text": "rain"
         },
         {
           "text": "shiny"
@@ -143,139 +189,23 @@
           "text": "sunny"
         },
         {
-          "text": "pleasant"
+          "text": "temperature"
+        },
+        {
+          "text": "weather"
         }
       ],
       "description": "Weather bot"
-    },
-    {
-      "intent": "bye",
-      "examples": [
-        {
-          "text": "ok good bye"
-        },
-        {
-          "text": "see you"
-        },
-        {
-          "text": "good bye"
-        },
-        {
-          "text": "That's it"
-        },
-        {
-          "text": "ok bye"
-        },
-        {
-          "text": "bye"
-        },
-        {
-          "text": "bye bye"
-        },
-        {
-          "text": "c u"
-        },
-        {
-          "text": "c ya"
-        }
-      ],
-      "description": ""
-    },
-    {
-      "intent": "thankyou",
-      "examples": [
-        {
-          "text": "Thank you"
-        },
-        {
-          "text": "Thanks a lot"
-        },
-        {
-          "text": "Thank you very much"
-        },
-        {
-          "text": "Thanks"
-        }
-      ]
     }
   ],
   "entities": [],
-  "language": "en",
   "metadata": {
     "api_version": {
-      "major_version": "v1",
-      "minor_version": "2018-07-10"
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
     }
   },
-  "description": "Interface Bot",
   "dialog_nodes": [
-    {
-      "type": "standard",
-      "title": "bye",
-      "output": {
-        "generic": [
-          {
-            "values": [
-              {
-                "text": "Have a nice time. Bye."
-              }
-            ],
-            "response_type": "text",
-            "selection_policy": "sequential"
-          }
-        ]
-      },
-      "metadata": {},
-      "conditions": "#bye",
-      "dialog_node": "node_2_1538635558838",
-      "previous_sibling": "node_1_1538635503771"
-    },
-    {
-      "type": "standard",
-      "title": "Greeting",
-      "output": {
-        "generic": [
-          {
-            "values": [
-              {
-                "text": "Hi. How can I help you?"
-              }
-            ],
-            "response_type": "text",
-            "selection_policy": "sequential"
-          }
-        ]
-      },
-      "metadata": {},
-      "conditions": "#General_Greetings",
-      "dialog_node": "node_1_1537856992108",
-      "previous_sibling": "Welcome"
-    },
-    {
-      "type": "standard",
-      "title": "Weather",
-      "output": {
-        "generic": [
-          {
-            "values": [
-              {
-                "text": "redirecting to weather bot"
-              }
-            ],
-            "response_type": "text",
-            "selection_policy": "sequential"
-          }
-        ]
-      },
-      "context": {
-        "destination_bot": "weather",
-        "redirect_to_another_bot": true
-      },
-      "metadata": {},
-      "conditions": "#weather",
-      "dialog_node": "node_1_1538584495780",
-      "previous_sibling": "node_1_1538024858380"
-    },
     {
       "type": "standard",
       "title": "Anything else",
@@ -305,13 +235,13 @@
     },
     {
       "type": "standard",
-      "title": "Thank you",
+      "title": "Greeting",
       "output": {
         "generic": [
           {
             "values": [
               {
-                "text": "Is there anything else that I can help you with?"
+                "text": "Hi. How can I help you?"
               }
             ],
             "response_type": "text",
@@ -320,9 +250,9 @@
         ]
       },
       "metadata": {},
-      "conditions": "#thankyou",
-      "dialog_node": "node_1_1538635503771",
-      "previous_sibling": "node_1_1538584495780"
+      "conditions": "#General_Greetings",
+      "dialog_node": "node_1_1537856992108",
+      "previous_sibling": "Welcome"
     },
     {
       "type": "standard",
@@ -351,6 +281,73 @@
     },
     {
       "type": "standard",
+      "title": "Weather",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "redirecting to weather bot"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "context": {
+        "destination_bot": "weather",
+        "redirect_to_another_bot": true
+      },
+      "metadata": {},
+      "conditions": "#weather",
+      "dialog_node": "node_1_1538584495780",
+      "previous_sibling": "node_1_1538024858380"
+    },
+    {
+      "type": "standard",
+      "title": "Thank you",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Is there anything else that I can help you with?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "metadata": {},
+      "conditions": "#thankyou",
+      "dialog_node": "node_1_1538635503771",
+      "previous_sibling": "node_1_1538584495780"
+    },
+    {
+      "type": "standard",
+      "title": "bye",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Have a nice time. Bye."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "metadata": {},
+      "conditions": "#bye",
+      "dialog_node": "node_2_1538635558838",
+      "previous_sibling": "node_1_1538635503771"
+    },
+    {
+      "type": "standard",
       "title": "Welcome",
       "output": {
         "generic": [
@@ -370,7 +367,6 @@
       "dialog_node": "Welcome"
     }
   ],
-  "workspace_id": "73f2a092-83eb-4701-9c9d-62ea6f5b10f8",
   "counterexamples": [],
   "system_settings": {
     "tooling": {
@@ -385,5 +381,7 @@
     }
   },
   "learning_opt_out": false,
-  "status": "Available"
+  "name": "agentBot",
+  "language": "en",
+  "description": "Interface Bot"
 }
